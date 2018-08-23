@@ -10,4 +10,4 @@
 
 # Use:
 #1、enter a chapter, example: cd chapter7
-#2、run codes: python knn.py ../datasets/animals/
+#2、run codes: python knn.py --dataset ../datasets/animals
