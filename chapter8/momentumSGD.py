@@ -30,8 +30,6 @@ def next_batch(X, y, batchSize):
 
 # construct the argment parse and parse the arguments
 ap = argparse.ArgumentParser()
-ap.add_argument("-n", "--samples-data", type=int, default=1000,
-        help="create data points, default=1000")
 ap.add_argument("-e", "--epochs", type=float, default=100,
         help="# of epochs, default=100")
 ap.add_argument("-a", "--alpha", type=float, default=0.01,
@@ -42,7 +40,7 @@ args = vars(ap.parse_args())
 
 # generate a 2-class classification problem with 1,000 data points,
 # where each data point is a 2D feature vector
-(X, y) = make_blobs(n_samples=args["samples_data"], n_features=2, centers=2,
+(X, y) = make_blobs(n_samples=1000, n_features=2, centers=2,
         cluster_std=1.5, random_state=1)
 y=y.reshape((y.shape[0], 1))
 
@@ -56,9 +54,11 @@ X = np.c_[X, np.ones((X.shape[0]))]
 (trainX, testX, trainY, testY) = train_test_split(X, y,
         test_size=0.5, random_state=42)
 
-# initialize our weight matrix and list of losses
+# initialize our weight matrix, momentum term and list of losses
 print("[INFO] training...")
 W = np.random.randn(X.shape[1], 1)
+V = np.random.randn(X.shape[1], 1)
+garma = 0.9
 losses=[]
 
 # loop over the desired number of epoches
@@ -86,7 +86,9 @@ for epoch in np.arange(0, args["epochs"]):
         # int the update state, all we need to do is "nudge" the weight matrix
         # in the negative direction of the gradient (hence the term "gradient
         # descent" by taking a small step towards a set of "more optimal" parameters)
-        W += -args["alpha"] * gradient
+        # momomtum SGD caculate:
+        V = garma * V - args["alpha"] * gradient
+        W += V
 
     # update our loss history by taking the average loss across all batches
     loss = np.average(epochLoss)

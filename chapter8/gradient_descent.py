@@ -24,6 +24,8 @@ def predict(X, W):
 
 # construct the argment parse and parse the arguments
 ap = argparse.ArgumentParser()
+ap.add_argument("-n", "--samples-data", type=int, default=1000,
+        help="create data points, default=1000")
 ap.add_argument("-e", "--epochs", type=float, default=100,
         help="# of epochs")
 ap.add_argument("-a", "--alpha", type=float, default=0.01,
@@ -32,7 +34,7 @@ args = vars(ap.parse_args())
 
 # generate a 2-class classification problem with 1,000 data points,
 # where each data point is a 2D feature vector
-(X, y) = make_blobs(n_samples=1000, n_features=2, centers=2,
+(X, y) = make_blobs(n_samples=args["samples_data"], n_features=2, centers=2,
         cluster_std=1.5, random_state=1)
 y=y.reshape((y.shape[0], 1))
 
