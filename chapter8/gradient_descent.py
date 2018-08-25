@@ -36,7 +36,7 @@ args = vars(ap.parse_args())
 # where each data point is a 2D feature vector
 (X, y) = make_blobs(n_samples=args["samples_data"], n_features=2, centers=2,
         cluster_std=1.5, random_state=1)
-y=y.reshape((y.shape[0], 1))
+y = y.reshape((y.shape[0], 1))
 
 # insert a colum of 1's as the last entry in the feature matrix
 # -- this little trick allows us to treat the bias as a trainable parameter
