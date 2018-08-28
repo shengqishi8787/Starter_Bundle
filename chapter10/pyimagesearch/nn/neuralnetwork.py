@@ -63,7 +63,7 @@ class NeuralNetwork:
         # activation is a special case -- it's just the input
         # feature vector it self
         A = [np.atleast_2d(x)]
-        
+
         # FEEDFORWARD:
         # loop over the layers in the network
         for layer in np.arange(0, len(self.W)):
@@ -110,7 +110,7 @@ class NeuralNetwork:
         # since we looped over our layers in reverse order we need to
         # reverse the deltas
         D = D[::-1]
-        
+
         # WEIGHT UPDATE PHASE:
         # loop over the layers
         for layer in np.arange(0, len(self.W)):
